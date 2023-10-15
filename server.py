@@ -14,5 +14,14 @@ server.listen()
 clients = []
 nicknames = []
 
-def broadcast(message):
-    pass
+
+def broadcast(message):  # sends message to all connected clients
+    for client in clients:
+        client.send(message)
+
+
+def handle_client(client):
+    while True:
+        try:  # if message receive, broadcast to other clients
+            message = client.recv(1024)
+            broadcast(message)
