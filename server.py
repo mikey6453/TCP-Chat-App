@@ -1,8 +1,18 @@
 import socket
 import threading
 
-SERVER = socket.gethostbyname(socket.gethostname())  # local host
-PORT = 5050
+
+SERVER = socket.gethostbyname(socket.gethostname())
+PORT = 55555
 ADDRESS = (SERVER, PORT)
 FORMAT = "UTF-8"
 
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(ADDRESS)  # bind socket to address
+server.listen()
+
+clients = []
+nicknames = []
+
+def broadcast(message):
+    pass
