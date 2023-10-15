@@ -25,3 +25,11 @@ def handle_client(client):
         try:  # if message receive, broadcast to other clients
             message = client.recv(1024)
             broadcast(message)
+        except:
+            index = clients.index(client)
+            client.remove(client)
+            client.close()
+            nickname= nicknames[index]
+            broadcast(f'{nickname} as left the chat.'.encode(FORMAT))
+            nicknames.remove(nickname)
+            break
