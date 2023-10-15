@@ -1,4 +1,5 @@
 import socket
+import threading
 
 SERVER = socket.gethostbyname(socket.gethostname())
 PORT = 55556
@@ -27,4 +28,14 @@ def receive():
             print("An error occurred!")
             client.close()
             break
+
+
+def send():
+    while True:
+        message = f'{nickname}: {input("")}'
+        client.send(message.encode(FORMAT))
+
+
+receive_thread = threading.Thread(target=receive)
+receive_thread.start()
 
