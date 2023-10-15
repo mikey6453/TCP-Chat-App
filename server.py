@@ -47,7 +47,6 @@ def start():
 
         print(f"Nickname of the client is {nickname}")
         broadcast(f"{nickname} has joined the chat!".encode(FORMAT))  # broadcast that 'nickname' has joined the chat
-        client.send('Connected to the server!'.encode(FORMAT))  # msg to the individual client
 
         client_thread = threading.Thread(target=handle_client, args=(client,))
         client_thread.start()
