@@ -1,6 +1,7 @@
 import socket
 import threading
 
+
 SERVER = socket.gethostbyname(socket.gethostname())
 PORT = 55556
 ADDRESS = (SERVER, PORT)
