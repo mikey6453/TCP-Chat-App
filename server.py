@@ -41,6 +41,7 @@ class ChatServer:
         self.server.listen()
         while True:
             client, address = self.server.accept()  # accepting clients at all times
+
             client.send("NICK".encode(FORMAT))
             nickname = client.recv(1024).decode(FORMAT)
             nicknames.append(nickname)
