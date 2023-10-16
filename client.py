@@ -8,13 +8,12 @@ FORMAT = "UTF-8"
 
 
 class ChatClient:
-    def __init__(self, nickname):
+    def __init__(self, nickname):  # Initialization method
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client.connect(ADDRESS)
         self.nickname = nickname
 
-
-    def receive(self):
+    def receive(self):  # listens for incoming messages all the time
         while True:
             try:
                 message = self.client.recv(1024).decode(FORMAT)
@@ -24,16 +23,11 @@ class ChatClient:
                 self.client.close()
                 break
 
-
-    def send(self, msg):
+    def send(self, msg):  # Sends a message
         while True:
             message = f'{self.nickname}: {msg}'
             self.client.send(message.encode(FORMAT))
 
-
-    def start(self):
+    def start(self):  # starts the receiving thread
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
-
-
-
