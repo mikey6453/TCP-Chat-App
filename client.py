@@ -6,33 +6,35 @@ PORT = 55556
 ADDRESS = (SERVER, PORT)
 FORMAT = "UTF-8"
 
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(ADDRESS)
 
-class ChatClient:
-    def __init__(self, nickname):  # Initialization method
-        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client.connect(ADDRESS)
-        self.nickname = nickname
+nickname = input("What is your nickname? ")
 
-    def receive(self):  # listens for incoming messages all the time
-        while True:
-            try:
-                message = self.client.recv(1024).decode(FORMAT)
+"""
+Client should perform two things: receiving and sending messages to the server
+"""
+
+
+def receive():
+    while True:
+        try:
+            message = client.recv(1024).decode(FORMAT)
+            if message == "NICK":
+                client.send(nickname.encode(FORMAT))
+            else:
                 print(message)
-            except:
-                print("An error occurred!")
-                self.client.close()
-                break
-
-    def send(self, msg):  # Sends a message
-        while True:
-            message = f'{self.nickname}: {msg}'
-            self.client.send(message.encode(FORMAT))
-
-    def start(self):  # starts the receiving thread
-        receive_thread = threading.Thread(target=self.receive)
-        receive_thread.start()
+        except:
+            print("An error occurred!")
+            client.close()
+            break
 
 
-if __name__ == "__main__":
-    chat_client = ChatClient()
-    chat_client.start()
+def send():
+    while True:
+        message = f'{nickname}: {input("")}'
+        client.send(message.encode(FORMAT))
+
+
+receive_thread = threading.Thread(target=receive)
+receive_thread.start()
