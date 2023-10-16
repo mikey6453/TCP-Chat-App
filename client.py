@@ -31,3 +31,8 @@ class ChatClient:
     def start(self):  # starts the receiving thread
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
+
+
+if __name__ == "__main__":
+    chat_client = ChatClient()
+    chat_client.start()

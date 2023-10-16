@@ -30,7 +30,7 @@ class ChatServer:
                 self.broadcast(message)
             except:
                 index = clients.index(client)
-                client.remove(client)
+                clients.remove(client)
                 client.close()
                 nickname = nicknames[index]
                 self.broadcast(f'{nickname} has left the chat.'.encode(FORMAT))
@@ -50,4 +50,8 @@ class ChatServer:
             client_thread = threading.Thread(target=self.handle_client, args=(client,))
             client_thread.start()
 
+
+if __name__ == "__main__":
+    chat_server = ChatServer()
+    chat_server.start()
 
