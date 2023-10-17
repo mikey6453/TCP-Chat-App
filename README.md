@@ -30,5 +30,5 @@ To exit the chat, simply close the client application.
 # Dependencies
 Python 3.x
 
-Author
+# Author
 Michael Park
